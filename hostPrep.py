@@ -59,7 +59,7 @@ def executeCommand(ip, failedIpDict):
     errStatus(ip, stdout, stderr, failedIpDict, "REGISTRATION")
     
     # Reading version specific commands from yaml file and appending them into cmdList list
-    with open("versionFile.yaml",'r') as yaml_file:
+    with open("ocpversion.yaml",'r') as yaml_file:
         yaml_reader = yaml.load(yaml_file, Loader=yaml.FullLoader)
         for items,value in yaml_reader.items():
             if ocpVersion == items:
