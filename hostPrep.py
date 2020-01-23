@@ -4,6 +4,7 @@ import getpass
 from multiprocessing import Process,Manager
 import yaml
 
+
 # Taking Input
 rhnId = input("\nEnter RHN Customer Id: ")
 rhnPassword = getpass.getpass(prompt="\nEnter RHN Password: ")
@@ -15,22 +16,27 @@ while not version:
     else:
         version = False
 
+        
 userPassword = getpass.getpass(prompt="\nEnter root password for nodes: ")
 ipFile = input("\nEnter file name with list of ip: ")
+
 
 # Defining empty lists and dictionary
 failedIpDict = Manager().dict()
 pList = []
 cmdList = []
 
+
 # Establishing SSH connection
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
 
 # If logFile directory already exists, remove and create it
 if os.path.exists("./logFiles"):
     os.system("rm -rf ./logFiles")
 os.mkdir("./logFiles")
+
 
 # Checks for any errors, and provides output accordingly
 def errStatus(ip, stdout, stderr, failedIpDict, step):
@@ -44,6 +50,7 @@ def errStatus(ip, stdout, stderr, failedIpDict, step):
         exit(1)
     else:
         print(ip, " >>", step, "COMPLETED SUCCESSFULLY!!")
+
         
 # Command execution over nodes
 def executeCommand(ip, failedIpDict):
@@ -66,12 +73,14 @@ def executeCommand(ip, failedIpDict):
                 cmdList = value
     yaml_file.close()
 
+    
     # Reading commands from cmdList list and executing them
     for line in cmdList:
         step, cmd = line.split(':')
         stdin, stdout, stderr = ssh.exec_command(cmd)
         errStatus(ip, stdout, stderr, failedIpDict, step)
 
+        
 # Multiprocessing implemented
 def checkthreading():
     try:
