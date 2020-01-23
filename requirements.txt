@@ -1,4 +1,3 @@
 python3
 pip3
-paramiko
-pyyaml
+pip3 modules: paramiko, pyyaml
