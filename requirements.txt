@@ -5,3 +5,4 @@ no
 python3
 pip3
 pip3 modules: paramiko, pyyaml
+abc
